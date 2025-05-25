@@ -3,6 +3,7 @@ import "./globals.css";
 import CarFinderFooter from "@/components/footer";
 import CarFinderHeader from "@/components/header";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
             <CarFinderHeader />
           </header>
           <main className="min-h-screen">{children}</main>
+          <Toaster richColors />
           <footer>
             {" "}
             <CarFinderFooter />{" "}
