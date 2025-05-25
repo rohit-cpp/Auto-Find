@@ -10,9 +10,11 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
 import { ArrowLeft, CarFront, Heart, Layout } from "lucide-react";
+import { checkUser } from "@/lib/checkUser";
 
 const CarFinderHeader = async ({ isAdminPage = false }) => {
-  const isAdmin = false;
+  const user = await checkUser();
+  const isAdmin = user?.role === "ADMIN";
   return (
     <header className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b">
       <nav className="mx-auto px-4 py-4 flex items-center justify-between">
@@ -48,18 +50,18 @@ const CarFinderHeader = async ({ isAdminPage = false }) => {
                   Saved cars
                 </Button>
               </Link>
-              {!isAdmin ? (
-                <Link href="/reservations">
-                  <Button>
-                    <CarFront size={18} />
-                    <span className="hidden md:inline"></span>
-                    My Reservations
-                  </Button>
-                </Link>
-              ) : (
+              {isAdmin ? (
                 <Link href="/admin">
                   <Button>
                     <Layout size={18} />
+                    <span className="hidden md:inline"></span>
+                    Admin Portal
+                  </Button>
+                </Link>
+              ) : (
+                <Link href="/reservations">
+                  <Button>
+                    <CarFront size={18} />
                     <span className="hidden md:inline"></span>
                     My Reservations
                   </Button>
